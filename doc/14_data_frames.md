@@ -6,7 +6,7 @@ DataSets provide a new API for manipulating data within Spark. These provide a m
 friendly experience than pure Scala for common queries. The Spark Cassandra Connector provides
 an integrated DataSource to make creating Cassandra DataSets easy.
 
-[What happened to dataframes](#what_happened_to_dataframes)
+[What happened to dataframes?](#what_happened_to_dataframes)
 
 Spark Docs:
 [Data Sources](https://spark.apache.org/docs/latest/sql-programming-guide.html#data-sources)
@@ -40,7 +40,7 @@ table level it will override the default keyspace or cluster property.
 To add these properties add keys to your `SparkConf` use the helpers explained 
  in the next section or by manually entering them in the format
 
-    clusterName:keyspaceName/propertyName.
+    clusterName:keyspaceName/propertyName
     
 #### Example Using TypeSafe Parameter Configuration Options
 There are also some helper method which simplifies setting Spark Cassandra 
@@ -69,7 +69,7 @@ spark.setCassandraConf("Cluster2", "ks3", ReadConf.SplitSizeInMBParam.option(80)
 ```scala
 spark.setCassandraConf("ClusterOne", "ks1", ReadConf.SplitSizeInMBParam.option(32))
 spark.setCassandraConf("default", "test", ReadConf.SplitSizeInMBParam.option(128))
-...
+
 val df = spark
   .read
   .format("org.apache.spark.sql.cassandra")
@@ -94,7 +94,7 @@ val lastdf = spark
   ).load() // This DataSet will use a spark.cassandra.input.split.size of 48
 ```
 
-###Creating DataSets using Read Commands
+### Creating DataSets using Read Commands
 
 The most programmatic way to create a data frame is to invoke a `read` command on the SparkSession. This
  will build a `DataFrameReader`. Specify `format` as `org.apache.spark.sql.cassandra`.
@@ -104,6 +104,7 @@ The most programmatic way to create a data frame is to invoke a `read` command o
  
 As well as specifying all these parameters manually we offer a set of 
 [helper functions](#example_using_format_helper_functions) to make this easier as well.
+
 
 #### Example Creating a DataSet using a Read Command
 ```scala
@@ -417,7 +418,7 @@ INFO  2015-08-26 00:56:37 org.apache.spark.sql.cassandra.CassandraSourceRelation
 
 In Spark 2.0 Dataframes are now just a specific case of the DataSet api. In particular
 a DataFrame is just an alias for DataSet\[Row\]. This means everything you know about
-DataFrames is also applicable to DataSets. Many texts and resources still use the two
-terms interchangeably.
+DataFrames is also applicable to DataSets. A DataFrame is just a special DataSet that is
+ made up of Row objects. Many texts and resources still use the two terms interchangeably.
 
 [Next - Python DataFrames](15_python.md)
