@@ -26,7 +26,7 @@ source and by specifying keyword arguments for `keyspace` and `table`.
 
 #### Example Loading a Cassandra Table as a Pyspark DataFrame
 ```python
- sqlContext.read\
+ spark.read\
     .format("org.apache.spark.sql.cassandra")\
     .options(table="kv", keyspace="test")\
     .load().show()
