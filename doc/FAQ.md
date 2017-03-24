@@ -5,12 +5,12 @@
 ### What does this mean "`NoClassDefFoundError: scala/collection/GenTraversableOnce$class?`"
 
 This means that there is a mix of Scala versions in the libraries used in your
-code. The collection api is different between Scala 2.10 and 2.11 and this the 
-most common error which occurs if a scala 2.10 library is attempted to be loaded
+code. The collection API is different between Scala 2.10 and 2.11 and this the 
+most common error which occurs if a Scala 2.10 library is attempted to be loaded
 in a Scala 2.11 runtime. To fix this make sure that the name has the correct
 Scala version suffix to match your Scala version. 
 
-##### Spark Cassandra Connector built against Scala 2.10
+##### Spark Cassandra Connector built Against Scala 2.10
 ```xml
 <artifactId>spark-cassandra-connector_2.10</artifactId>
 ```
@@ -39,7 +39,7 @@ For reference the defaults of Spark as downloaded from the Apache Website are
 ### How do I Fix Guava Classpath Errors
 
 Guava errors come from a conflict between Guava brought in by some 
-dependency (like Hadoop 2.7) and the Cassandra java Driver. 
+dependency (like Hadoop 2.7) and the Cassandra Java Driver. 
 The Cassandra Java Driver is unable to function correctly if an 
 earlier version of Guava is preempting the required version. The 
 Java Driver will throw errors if it determines 
@@ -201,18 +201,18 @@ so there will be some inaccuracy with smaller tables and split sizes.
 
 This error is commonly thrown when the dependencies of the Spark Cassandra Connector are not
 on the runtime classpath of the Spark Application. This is usually caused by not using the
- proscribed `--packages` method of adding the Spark Cassandra Connector and it's dependencies
- to the runtime classpath. Fix this by following the launch guidelines as shown in the 
- [quick start guide](0_quick_start.md)
+prescribed `--packages` method of adding the Spark Cassandra Connector and it's dependencies
+to the runtime classpath. Fix this by following the launch guidelines as shown in the 
+[quick start guide](0_quick_start.md).
 
 
 ### Can I contribute to the Spark Cassandra Connector?
 
-YES! Feel free to start a Jira and detail the changes you would like to make or the feature you
+YES! Feel free to start a JIRA and detail the changes you would like to make or the feature you
 would like to add. We would be happy to discuss it with you and see your work. Feel free to create
- a Jira before you have started any work if you would like feedback on an idea. When you have a branch
+a JIRA before you have started any work if you would like feedback on an idea. When you have a branch
 that you are satisfied with and passes all the tests (`/dev/run_tests.sh`) make a GitHub PR against
-your target Connector Version and set your Jira to Reviewing.
+your target Connector Version and set your JIRA to Reviewing.
 
 ### What should I do if I find a bug? 
 

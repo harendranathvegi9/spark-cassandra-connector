@@ -1,17 +1,16 @@
 # Documentation
 
-## DataSets (Previously DataFrames)
+## Datasets (Previously DataFrames)
 
-DataSets provide a new API for manipulating data within Spark. These provide a more user
+Datasets provide a new API for manipulating data within Spark. These provide a more user
 friendly experience than pure Scala for common queries. The Spark Cassandra Connector provides
-an integrated DataSource to make creating Cassandra DataSets easy.
+an integrated Data Source to make creating Cassandra Datasets easy.
 
-[What happened to dataframes?](#what_happened_to_dataframes)
+[What happened to DataFrames?](#what-happened-to-dataframes)
 
 Spark Docs:
 [Data Sources](https://spark.apache.org/docs/latest/sql-programming-guide.html#data-sources)
-[Data Frames](https://spark.apache.org/docs/latest/sql-programming-guide.html#datasets-and-dataframes)
-
+[Datasets and DataFrames](https://spark.apache.org/docs/latest/sql-programming-guide.html#datasets-and-dataframes)
 
 ### Datasource Specific Options
 DataSources in Spark take a map of Options which define how the source should act. The
@@ -27,14 +26,14 @@ Those followed with a default of N/A are required, all others are optional.
 
 #### General Read, Write and Connection Options
 Any normal Spark Connector configuration options for Connecting, Reading or Writing
-can be passed through as DataSet options as well. When using the `read` command below these
+can be passed through as Dataset options as well. When using the `read` command below these
 options should appear exactly the same as when set in the SparkConf. See 
 [Config Helpers](#example_using_typesafe_parameter_configuration_options) for
 typed helpers for setting these options.
 
 #### Setting Cluster and Keyspace Level Options
 The connector also provides a way to describe the options which should be applied to all
-DataSets within a cluster or within a keyspace. When a property has been specified at the
+Datasets within a cluster or within a keyspace. When a property has been specified at the
 table level it will override the default keyspace or cluster property.
 
 To add these properties add keys to your `SparkConf` use the helpers explained 
@@ -43,7 +42,7 @@ To add these properties add keys to your `SparkConf` use the helpers explained
     clusterName:keyspaceName/propertyName
     
 #### Example Using TypeSafe Parameter Configuration Options
-There are also some helper method which simplifies setting Spark Cassandra 
+There are also some helper methods which simplify setting Spark Cassandra 
 Connector related parameters. This makes it easier to set parameters without
 remembering the above syntax:
 ```scala
@@ -74,13 +73,13 @@ val df = spark
   .read
   .format("org.apache.spark.sql.cassandra")
   .options(Map( "table" -> "words", "keyspace" -> "test"))
-  .load() // This DataSet will use a spark.cassandra.input.size of 32
+  .load() // This Dataset will use a spark.cassandra.input.size of 32
 
 val otherdf =  spark
   .read
   .format("org.apache.spark.sql.cassandra")
   .options(Map( "table" -> "words", "keyspace" -> "test" , "cluster" -> "ClusterOne"))
-  .load() // This DataSet will use a spark.cassandra.input.size of 128
+  .load() // This Dataset will use a spark.cassandra.input.size of 128
 
 val lastdf = spark
   .read
@@ -91,22 +90,22 @@ val lastdf = spark
     "cluster" -> "ClusterOne",
     "spark.cassandra.input.split.size_in_mb" -> 48
     )
-  ).load() // This DataSet will use a spark.cassandra.input.split.size of 48
+  ).load() // This Dataset will use a spark.cassandra.input.split.size of 48
 ```
 
-### Creating DataSets using Read Commands
+### Creating Datasets using Read Commands
 
-The most programmatic way to create a data frame is to invoke a `read` command on the SparkSession. This
- will build a `DataFrameReader`. Specify `format` as `org.apache.spark.sql.cassandra`.
- You can then use `options` to give a map of `Map[String,String]` of options as described above.
- Then finish by calling `load` to actually get a `DataSet`. This is code is all lazy
- and will not actually load any data until an action is called.
+The most programmatic way to create a Dataset is to invoke a `read` command on the SparkSession. This
+will build a `DataFrameReader`. Specify `format` as `org.apache.spark.sql.cassandra`.
+You can then use `options` to give a map of `Map[String,String]` of options as described above.
+Then finish by calling `load` to actually get a `Dataset`. This code is all lazy
+and will not actually load any data until an action is called.
  
-As well as specifying all these parameters manually we offer a set of 
+As well as specifying all these parameters manually, we offer a set of 
 [helper functions](#example_using_format_helper_functions) to make this easier as well.
 
 
-#### Example Creating a DataSet using a Read Command
+#### Example Creating a Dataset using a Read Command
 ```scala
 val df = spark
   .read
@@ -122,9 +121,9 @@ cat  30
 fox  40
 ```
 
-There are also some helper methods which can make creating data frames easier. They can 
+There are also some helper methods which can make creating Datasets easier. They can 
 be accessed after importing `org.apache.spark.sql.cassandra` package. In the following 
-example, all the commands used to create a data frame are equivalent:
+example, all the commands used to create the Dataset are equivalent:
 
 #### Example Using Format Helper Functions
 ```scala
@@ -135,7 +134,7 @@ val df = spark
   .cassandraFormat("words", "test")
   .load()
  
-//Loading an DataSet using a format helper and a option helper
+//Loading an Dataset using a format helper and a option helper
 val df = spark
   .read
   .cassandraFormat("words", "test")
@@ -144,9 +143,9 @@ val df = spark
   
 ```
 
-### Creating DataSets using Spark SQL
+### Creating Datasets using Spark SQL
 
-Accessing DataSets using Spark SQL involves creating temporary views with the format 
+Accessing Datasets using Spark SQL involves creating temporary views with the format 
  as `org.apache.spark.sql.cassandra`. The `OPTIONS` passed to this table are used to
 establish a relation between the CassandraTable and the Spark catalog reference.
 
@@ -166,12 +165,12 @@ spark.sql("SELECT * FROM words").show
 spark.sql("SELECT * FROM words WHERE word = 'fox'").show
 ```
 
-###Persisting a DataSet to Cassandra Using the Save Command
-DataSets provide a save function which allows them to persist their data to another
-DataSource. The connector supports using this feature to persist a DataSet a Cassandra
-Table.
+###Persisting a Dataset to Cassandra Using the Save Command
+Datasets provide a save function which allows them to persist their data to another
+DataSource. The connector supports using this feature to persist a Dataset to a Cassandra
+table.
 
-#### Example Copying Between Two Tables Using DataSets
+#### Example Copying Between Two Tables Using Datasets
 ```scala
 
 val df = spark
@@ -184,10 +183,10 @@ df.write
   .save()
 ```
 
-Similarly to reading Cassandra tables into data frames, we have some helper methods for the write path which are 
+Similarly to reading Cassandra tables into Datasets, we have some helper methods for the write path which are 
 provided by `org.apache.spark.sql.cassandra` package. In the following example, all the commands are equivalent:
 
-#### Example Using Helper Commands to Write DataSets
+#### Example Using Helper Commands to Write Datasets
 ```scala
 import org.apache.spark.sql.cassandra._
 
@@ -202,7 +201,7 @@ df.write
 
 ```
 
-### Setting Connector specific options on DataSets
+### Setting Connector Specific Options on Datasets
 Connector specific options can be set by invoking `options` method on either `DataFrameReader` or `DataFrameWriter`. 
 There are several settings you may want to change in `ReadConf`, `WriteConf`, `CassandraConnectorConf`, `AuthConf` and
 others. Those settings are identified by instances of `ConfigParameter` case class which offers an easy way to apply 
@@ -225,18 +224,18 @@ multiple parameters can be chained:
 options(CassandraConnectorConf.ReadTimeoutParam.sqlOption("7000") ++ ReadConf.TaskMetricParam.sqlOption(true))
 ```
 
-###Creating a New Cassandra Table From a DataSet Schema
-Spark Cassandra Connector adds a method to `DataSet` that allows it to create a new Cassandra table from
-the `StructType` schema of the DataSet. This is convenient for persisting a DataSet to a new table, especially
-when the schema of the DataSet is not known (fully or at all) ahead of time (at compile time of your application).
-Once the new table is created, you can persist the DataSet to the new table using the save function described above.
+###Creating a New Cassandra Table From a Dataset Schema
+Spark Cassandra Connector adds a method to `Dataset` that allows it to create a new Cassandra table from
+the `StructType` schema of the Dataset. This is convenient for persisting a Dataset to a new table, especially
+when the schema of the Dataset is not known (fully or at all) ahead of time (at compile time of your application).
+Once the new table is created, you can persist the Dataset to the new table using the save function described above.
 
 The partition key and clustering key of the newly generated table can be set by passing in a list of 
 names of columns which should be used as partition key and clustering key.
 
-#### Example Creating a Cassandra Table from a DataSet
+#### Example Creating a Cassandra Table from a Dataset
 ```scala
-// Add spark connector specific methods to DataSet
+// Add spark connector specific methods to Dataset
 import com.datastax.spark.connector._
 
 val df = spark
@@ -257,8 +256,8 @@ renamed.write
 ```
 
 ### Automatic  Predicate Pushdown and Column Pruning
-The DataSet API will automatically pushdown valid where clauses to Cassandra as long as the
-pushdown option is enabled (default is enabled.)
+The Dataset API will automatically pushdown valid "where" clauses to Cassandra as long as the
+pushdown option is enabled (default is enabled).
 
 Example Table
 ```sql
@@ -276,9 +275,9 @@ INSERT INTO words (user, word, count ) VALUES ( 'Sam', 'alpha', 3 );
 INSERT INTO words (user, word, count ) VALUES ( 'Zebra', 'zed', 100 );
 ```
 
-First we can create a DataSet and see that it has no `pushdown filters` set in the log. This
+First we can create a Dataset and see that it has no `pushdown filters` set in the log. This
 means all requests will go directly to Cassandra and we will require reading all of the data to `show`
-this DataSet.
+this Dataset.
 
 #### Example Catalyst Optimization with Cassandra Server Side Pushdowns
 ```scala
@@ -312,7 +311,7 @@ df.show
 ```
 
 The example schema has a clustering key of "word" so we can pushdown filters on that column to Cassandra. We
-do this by applying a normal DataSet filter. The connector will automatically determine that the
+do this by applying a normal Dataset filter. The connector will automatically determine that the
 filter can be pushed down and will add it to `pushdown filters`. All of the elements of
 `pushdown filters` will be automatically added to the CQL requests made to Cassandra for the
 data from this table. The subsequent call will then only serialize data from Cassandra which passes the filter,
@@ -414,11 +413,11 @@ INFO  2015-08-26 00:56:37 org.apache.spark.sql.cassandra.CassandraSourceRelation
 INFO  2015-08-26 00:56:37 org.apache.spark.sql.cassandra.CassandraSourceRelation: pushdown filters: ArrayBuffer(EqualTo(clusterkey1,1), EqualTo(clusterkey2,1))
 ```
 
-#### What happened to DataFrames?
+#### What Happened to DataFrames?
 
-In Spark 2.0 Dataframes are now just a specific case of the DataSet api. In particular
-a DataFrame is just an alias for DataSet\[Row\]. This means everything you know about
-DataFrames is also applicable to DataSets. A DataFrame is just a special DataSet that is
- made up of Row objects. Many texts and resources still use the two terms interchangeably.
+In Spark 2.0 DataFrames are now just a specific case of the Dataset API. In particular
+a DataFrame is just an alias for Dataset\[Row\]. This means everything you know about
+DataFrames is also applicable to Datasets. A DataFrame is just a special Dataset that is
+made up of Row objects. Many texts and resources still use the two terms interchangeably.
 
 [Next - Python DataFrames](15_python.md)
