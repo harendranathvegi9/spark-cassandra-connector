@@ -90,7 +90,7 @@ determine how many tasks have been generated. To check this look at the UI for y
 job and see how many tasks are being run. In the current Shell a small progress bar is shown
 when running stages, the numbers represent (Completed Tasks + Running Tasks) / Total Tasks 
 
-    [Stage 2:=============================================>  (121 + 1) / 200]0
+    [Stage 2:=============================================>  (121 + 1) / 200]
 
 If you see that only a single task has been created this means that the Cassandra Token range has
 not been split into a enough tasks to be well parallelized on your cluster. The number of 
@@ -196,6 +196,15 @@ The Connector evaluates the number of Spark partitions by dividing table size es
 Input.split.size_in_mb uses a internal system table in Cassandra ( >= 2.1.5) to determine the size
 of the data in Cassandra. The table is called system.size_estimates is not meant to be absolutely accurate 
 so there will be some inaccuracy with smaller tables and split sizes.
+
+### java.lang.NoClassDefFoundError: com/twitter/jsr166e/LongAdder is getting thrown?
+
+This error is commonly thrown when the dependencies of the Spark Cassandra Connector are not
+on the runtime classpath of the Spark Application. This is usually caused by not using the
+ proscribed `--packages` method of adding the Spark Cassandra Connector and it's dependencies
+ to the runtime classpath. Fix this by following the launch guidelines as shown in the 
+ [quick start guide](0_quick_start.md)
+
 
 ### Can I contribute to the Spark Cassandra Connector?
 
