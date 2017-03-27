@@ -9,12 +9,12 @@ an integrated Data Source to make creating Cassandra Datasets easy.
 [What happened to DataFrames?](#what-happened-to-dataframes)
 
 Spark Docs:
-[Data Sources](https://spark.apache.org/docs/latest/sql-programming-guide.html#data-sources)
-[Datasets and DataFrames](https://spark.apache.org/docs/latest/sql-programming-guide.html#datasets-and-dataframes)
+* [Data Sources](https://spark.apache.org/docs/latest/sql-programming-guide.html#data-sources)
+* [Datasets and DataFrames](https://spark.apache.org/docs/latest/sql-programming-guide.html#datasets-and-dataframes)
 
 ### Datasource Specific Options
 DataSources in Spark take a map of Options which define how the source should act. The
-Connector provides a CassandraSource which recognizes the following Key Value pairs.
+Connector provides a CassandraSource which recognizes the following key/value pairs.
 Those followed with a default of N/A are required, all others are optional.
 
 | Option Key  | Controls                                                     | Values        | Default  |
@@ -28,7 +28,7 @@ Those followed with a default of N/A are required, all others are optional.
 Any normal Spark Connector configuration options for Connecting, Reading or Writing
 can be passed through as Dataset options as well. When using the `read` command below these
 options should appear exactly the same as when set in the SparkConf. See 
-[Config Helpers](#example_using_typesafe_parameter_configuration_options) for
+[Config Helpers](#example-using-typesafe-parameter-configuration-options) for
 typed helpers for setting these options.
 
 #### Setting Cluster and Keyspace Level Options
@@ -102,7 +102,7 @@ Then finish by calling `load` to actually get a `Dataset`. This code is all lazy
 and will not actually load any data until an action is called.
  
 As well as specifying all these parameters manually, we offer a set of 
-[helper functions](#example_using_format_helper_functions) to make this easier as well.
+[helper functions](#example-using-format-helper-functions) to make this easier as well.
 
 
 #### Example Creating a Dataset using a Read Command
@@ -165,7 +165,7 @@ spark.sql("SELECT * FROM words").show
 spark.sql("SELECT * FROM words WHERE word = 'fox'").show
 ```
 
-###Persisting a Dataset to Cassandra Using the Save Command
+### Persisting a Dataset to Cassandra Using the Save Command
 Datasets provide a save function which allows them to persist their data to another
 DataSource. The connector supports using this feature to persist a Dataset to a Cassandra
 table.
