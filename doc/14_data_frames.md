@@ -224,7 +224,7 @@ multiple parameters can be chained:
 options(CassandraConnectorConf.ReadTimeoutParam.sqlOption("7000") ++ ReadConf.TaskMetricParam.sqlOption(true))
 ```
 
-###Creating a New Cassandra Table From a Dataset Schema
+### Creating a New Cassandra Table From a Dataset Schema
 Spark Cassandra Connector adds a method to `Dataset` that allows it to create a new Cassandra table from
 the `StructType` schema of the Dataset. This is convenient for persisting a Dataset to a new table, especially
 when the schema of the Dataset is not known (fully or at all) ahead of time (at compile time of your application).
